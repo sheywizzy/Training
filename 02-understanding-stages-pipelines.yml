@@ -11,39 +11,45 @@ stages:
     steps:
     - bash: echo Build FirstJob
     - bash: echo $(PipelineLevelVariable)
-  - job: secondJob
-    steps:
-    - bash: echo Build SecondJob
-- stage: DevDeploy
-  variables:
-    environment: Dev
-  dependsOn: Build
-  jobs:
-  - job: DevDeployJob
-    steps:
-    - bash: echo $(Environment)DeployJob
-- stage: TestingDeploy
-  dependsOn: Build
-  jobs:
-  - job: TestingDeployJob
-    steps:
-    - bash: echo TestingDeployJob
-- stage: UatDeploy
-  variables:
-    environment: Uat
-  dependsOn: Build
-  jobs:
-  - job: UatDeployJob
-    steps:
-    - bash: echo $(Environment)DeployJob
-- stage: ProdDeploy
-  dependsOn:
-  - TestingDeploy
-  - UatDeploy
-  - DevDeploy
-  jobs:
-  - job: ProdDeployJob
-    steps:
-    - bash: echo ProdDeployJob
+    - bash: echo $(Build.BuildNumber)
+    - bash: echo $(Build.BuildId)
+    - bash: echo $(Build.SourceBranchName)
+    - bash: echo $(Build.SourcesDirectory)
+    - bash: echo $(System.DefaultWorkingDirectory)
+    - bash: ls -R $(System.DefaultWorkingDirectory)
+    - bash: echo $(Build.ArtifactStagingDirectory)
+# - job: secondJob
+#   steps:
+#   - bash: echo Build SecondJob
+# - stage: DevDeploy
+#   dependsOn: Build
+#   jobs:
+#   - job: DevDeployJob
+#     steps:
+#     - bash: echo DevDeployJob
+# - stage: TestingDeploy
+#   dependsOn: Build
+#   jobs:
+#   - job: TestingDeployJob
+#     steps:
+#     - bash: echo TestingDeployJob
+# - stage: UatDeploy
+#   dependsOn: Build
+#   jobs:
+#   - job: UatDeployJob
+#     steps:
+#     - bash: echo UatDeployJob
+# - stage: ProdDeploy
+#   dependsOn:
+#   - TestingDeploy
+#   - UatDeploy
+#   - DevDeploy
+#   jobs:
+#   - job: ProdDeployJob
+#     steps:
+#     - bash: echo ProdDeployJob
+
+
+
 
 
