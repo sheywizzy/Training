@@ -20,11 +20,13 @@ stages:
     steps:
     - bash: echo DevDeployJob
 - stage: TestingDeploy
+  dependsOn: Build
   jobs:
   - job: TestingDeployJob
     steps:
     - bash: echo TestingDeployJob
 - stage: UatDeploy
+  dependsOn: Build
   jobs:
   - job: UatDeployJob
     steps:
