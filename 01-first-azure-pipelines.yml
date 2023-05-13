@@ -12,7 +12,7 @@ pool:
 
 #Pipeline>Stages>Jobs>Tasks(Steps)
 
-Jobs:
+jobs:
 - job: Job1
   steps:
   - script: echo Job1 - Hello, world, changed!
@@ -25,6 +25,6 @@ Jobs:
     displayName: 'Run a multi-line script'
 
 - job: Job2
-` steps:
+  steps:
   - script: echo Job2!
-    displayName: 'Run a one-line script'   
+    displayName: 'Run a one-line script'      
