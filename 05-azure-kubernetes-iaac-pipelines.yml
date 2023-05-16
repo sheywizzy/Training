@@ -5,7 +5,7 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello Terraform Azure!
+- script: echo K8s Terraform Azure!
   displayName: 'Run a one-line script'
 
 - task: DownloadSecureFile@1
@@ -24,6 +24,6 @@ steps:
     backendAzureRmResourceGroupName: 'Terraform-Backend-rg'
     backendAzureRmResourceGroupLocation: 'East US'
     backendAzureRmStorageAccountName: 'storageaccountterra'
-    backendAzureRmContainerName: 'StorageAccountContainer'
+    backendAzureRmContainerName: 'storageaccountcontainer'
     backendAzureRmKey: 'kubernetes-dev.tfstate'
     allowTelemetryCollection: true
