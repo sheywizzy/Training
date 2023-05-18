@@ -13,17 +13,36 @@ steps:
   inputs:
     secureFile: 'azure_rsa.pub'
 
+# - task: AzureCLI@2
+#   inputs:
+#     azureSubscription: 'azure-resource-manager-service-connection'
+#     scriptType: 'bash'
+#     scriptLocation: 'inlineScript'
+#     inlineScript: |
+#       az group create --name Terraform-Backend-rg --location EastUS
+#       az storage account create --name terrauniquestrg --resource-group Terraform-Backend-rg --location EastUS --sku Standard_LRS
+#   displayName: 'Create Azure resources' 
+
+
 - task: TerraformCLI@0
   inputs:
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
-    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(Publickey.secureFilePath)'
+    # commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(Publickey.secureFilePath)'
     backendType: 'azurerm'
     backendServiceArm: 'azure-resource-manager-service-connection'
     ensureBackend: true
     backendAzureRmResourceGroupName: 'Terraform-Backend-rg'
     backendAzureRmResourceGroupLocation: 'East US'
-    backendAzureRmStorageAccountName: 'storageaccountterra'
+    backendAzureRmStorageAccountName: 'terrauniquestrg'
     backendAzureRmContainerName: 'storageaccountcontainer'
     backendAzureRmKey: 'kubernetes-dev.tfstate'
+    allowTelemetryCollection: true
+
+- task: TerraformCLI@0
+  inputs:
+    command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+    environmentServiceName: 'azure-resource-manager-service-connection'
+    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(Publickey.secureFilePath)'
     allowTelemetryCollection: true
