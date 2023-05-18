@@ -50,15 +50,6 @@ stages:
       vmImage: ubuntu-latest
     steps:
 
-- stage: Deploy
-  displayName: Deploy image
-  jobs:
-  - job: Deploy
-    displayName: Deploy
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-
     - task: DownloadPipelineArtifact@2
       inputs:
        buildType: 'current'
