@@ -62,7 +62,7 @@ stages:
         connectionType: 'kubernetesServiceConnection'
         kubernetesServiceConnection: 'Azure-kubernetes-connection'
         namespace: 'default'
-        manifests: '(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
+        manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
         containers: 'sheywayne/currency-exchange-devops:$(tag)'
 # Stage 2
 # Download the K8s Files
