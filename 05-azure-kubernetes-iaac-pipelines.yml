@@ -13,6 +13,13 @@ steps:
   inputs:
     secureFile: 'azure_rsa.pub'
 
+- script: |
+    az login --service-principal --username $(client_id) --password $(client_secret) --tenant $(tenant_id)
+    az group create --name Terraform-Backend-rg --location EastUS
+    az storage account create --name storageaccountterra --resource-group Terraform-Backend-rg --location EastUS --sku Standard_LRS
+  displayName: 'Create Azure resources'
+
+
 - task: TerraformCLI@0
   inputs:
     command: 'init'
