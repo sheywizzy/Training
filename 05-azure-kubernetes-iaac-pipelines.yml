@@ -22,6 +22,8 @@ steps:
     backendServiceArm: 'azure-resource-manager-service-connection'
     ensureBackend: true
     backendAzureRmResourceGroupName: 'Terraform-Backend-rg'
+    backendAzureRmResourceGroupLocation: 'East US'
     backendAzureRmStorageAccountName: 'storageaccountterra'
     backendAzureRmContainerName: 'storageaccountcontainer'
     backendAzureRmKey: 'kubernetes-dev.tfstate'
+    allowTelemetryCollection: true
