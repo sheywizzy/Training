@@ -20,7 +20,7 @@ steps:
     scriptLocation: 'inlineScript'
     inlineScript: |
       az group create --name Terraform-Backend-rg --location EastUS
-      az storage account create --name storageaccountterra --resource-group Terraform-Backend-rg --location EastUS --sku Standard_LRS
+      az storage account create --name storageacctterra --resource-group Terraform-Backend-rg --location EastUS --sku Standard_LRS
   displayName: 'Create Azure resources' 
 
 
@@ -34,7 +34,7 @@ steps:
     ensureBackend: true
     backendAzureRmResourceGroupName: 'Terraform-Backend-rg'
     backendAzureRmResourceGroupLocation: 'East US'
-    backendAzureRmStorageAccountName: 'storageaccountterra'
+    backendAzureRmStorageAccountName: 'storageacctterra'
     backendAzureRmContainerName: 'storageaccountcontainer'
     backendAzureRmKey: 'kubernetes-dev.tfstate'
     allowTelemetryCollection: true
