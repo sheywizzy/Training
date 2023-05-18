@@ -12,6 +12,28 @@ steps:
   name: Publickey
   inputs:
     secureFile: 'azure_rsa.pub'
+- task: AzureCLI@2
+  displayName: 'Create a Storage Account if not exist'
+  inputs:
+    azureSubscription: 'azure-resource-manager-service-connection'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      RG_NAME=Terraform-Backend-rg
+      LOCATION=East US
+      STORAGE_ACCOUNT_NAME=storageaccountterra
+
+      echo "Checking if resource group exists..."
+      if ! az group exists --name $RG_NAME ; then
+        echo "Creating resource group..."
+        az group create --name $RG_NAME --location "$LOCATION"
+      fi
+
+      echo "Checking if storage account exists..."
+      if ! az storage account check-name --name $STORAGE_ACCOUNT_NAME --query nameAvailable --output tsv ; then
+        echo "Creating storage account..."
+        az storage account create --name $STORAGE_ACCOUNT_NAME --resource-group $RG_NAME --location "$LOCATION" --sku Standard_LRS
+      fi
 
 - task: TerraformCLI@0
   inputs:
